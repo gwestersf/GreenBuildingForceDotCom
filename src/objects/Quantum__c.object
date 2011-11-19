@@ -33,6 +33,7 @@
         <type>Default</type>
     </actionOverrides>
     <deploymentStatus>Deployed</deploymentStatus>
+    <description>A report from a sensor, at a given point in time.</description>
     <enableActivities>false</enableActivities>
     <enableFeeds>false</enableFeeds>
     <enableHistory>false</enableHistory>
