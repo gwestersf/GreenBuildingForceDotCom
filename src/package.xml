@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StreamingBootstrap</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <description>Get started with the Realtime Force and the Streaming API on Salesforce.</description>
+    <namespacePrefix>gwestr</namespacePrefix>
+    <types>
+        <members>SensorRestResource</members>
+        <members>SensorRestResourceTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>SensorConsole</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>Quantum__c.Sensor__c</members>
+        <members>Quantum__c.Type__c</members>
+        <members>Quantum__c.Value__c</members>
+        <members>Sensor__c.Type__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>Quantum__c</members>
+        <members>Sensor__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Quantum__c-Quantum Layout</members>
+        <members>Sensor__c-Sensor Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>ack_js</members>
+        <members>bootstrap_css</members>
+        <members>cometd_js</members>
+        <members>dojo_js</members>
+        <members>json2_js</members>
+        <members>reload_js</members>
+        <members>timestamp_js</members>
+        <members>timesync_js</members>
+        <name>StaticResource</name>
+    </types>
+    <version>23.0</version>
+</Package>
