@@ -51,13 +51,18 @@
     </types>
     <types>
         <members>ack_js</members>
+        <members>ackext_js</members>
         <members>bootstrap_css</members>
         <members>cometd_js</members>
-        <members>dojo_js</members>
+        <members>common_cometd_js</members>
+        <members>cookie_js</members>
         <members>json2_js</members>
         <members>reload_js</members>
+        <members>reloadext_js</members>
         <members>timestamp_js</members>
+        <members>timestampext_js</members>
         <members>timesync_js</members>
+        <members>timesyncext_js</members>
         <name>StaticResource</name>
     </types>
     <version>23.0</version>

@@ -18,7 +18,10 @@ dojox.cometd = new org.cometd.Cometd();
 // Remap toolkit-specific transport calls
 dojox.cometd.LongPollingTransport = function()
 {
-    this.xhrSend = function(packet)
+    var _super = new org.cometd.LongPollingTransport();
+    var that = org.cometd.Transport.derive(_super);
+
+    that.xhrSend = function(packet)
     {
         var deferred = dojo.rawXhrPost({
             url: packet.url,
@@ -30,18 +33,21 @@ dojox.cometd.LongPollingTransport = function()
             load: packet.onSuccess,
             error: function(error)
             {
-                packet.onError(error.message, deferred ? deferred.ioArgs.error : error);
+                packet.onError(error.message, deferred.ioArgs.error);
             }
         });
         return deferred.ioArgs.xhr;
     };
+
+    return that;
 };
-dojox.cometd.LongPollingTransport.prototype = new org.cometd.LongPollingTransport();
-dojox.cometd.LongPollingTransport.prototype.constructor = dojox.cometd.LongPollingTransport;
 
 dojox.cometd.CallbackPollingTransport = function()
 {
-    this.jsonpSend = function(packet)
+    var _super = new org.cometd.CallbackPollingTransport();
+    var that = org.cometd.Transport.derive(_super);
+
+    that.jsonpSend = function(packet)
     {
         var deferred = dojo.io.script.get({
             url: packet.url,
@@ -54,15 +60,19 @@ dojox.cometd.CallbackPollingTransport = function()
             load: packet.onSuccess,
             error: function(error)
             {
-                packet.onError(error.message, deferred ? deferred.ioArgs.error : error);
+                packet.onError(error.message, deferred.ioArgs.error);
             }
         });
         return undefined;
     };
-};
-dojox.cometd.CallbackPollingTransport.prototype = new org.cometd.CallbackPollingTransport();
-dojox.cometd.CallbackPollingTransport.prototype.constructor = dojox.cometd.CallbackPollingTransport;
 
+    return that;
+};
+
+if (window.WebSocket)
+{
+    dojox.cometd.registerTransport('websocket', new org.cometd.WebSocketTransport());
+}
 dojox.cometd.registerTransport('long-polling', new dojox.cometd.LongPollingTransport());
 dojox.cometd.registerTransport('callback-polling', new dojox.cometd.CallbackPollingTransport());
 

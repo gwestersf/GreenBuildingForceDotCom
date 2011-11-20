@@ -97,6 +97,12 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Quanta</pluralLabel>
-    <searchLayouts/>
+    <searchLayouts>
+        <customTabListAdditionalFields>OBJECT_ID</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Sensor__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Type__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Value__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+    </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>

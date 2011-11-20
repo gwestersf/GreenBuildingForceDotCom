@@ -55,6 +55,10 @@
     </layoutSections>
     <relatedLists>
         <fields>NAME</fields>
+        <fields>OBJECT_ID</fields>
+        <fields>Type__c</fields>
+        <fields>Value__c</fields>
+        <fields>CREATED_DATE</fields>
         <relatedList>Quantum__c.Sensor__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
