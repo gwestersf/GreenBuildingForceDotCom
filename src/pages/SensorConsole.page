@@ -21,6 +21,14 @@
             {
                 dojo.byId('body').innerHTML = 'CometD Connection Broken';
             }
+            
+            function _metaSubscribe(message)
+            {
+                if(message.successful == false)
+                {
+                    Alert("Subscribe failed");
+                }
+            }
         
             function _metaConnect(message)
             {
@@ -46,14 +54,17 @@
         
             var auth = 'OAuth {!$Api.Session_ID}';
             var cometUrl = 'https://' + window.location.hostname + '/cometd/23.0/';
-            cometd.configure({
+            cometd.init({
                 url: cometUrl,
                 requestHeaders: {Authorization: auth}
             });
+            
+            cometd.subscribe('/topic/quantum', _metaSubscribe);
         
             cometd.addListener('/meta/connect', _metaConnect);
         
-            cometd.handshake();
+
+
         });
     </script>
   </head>
