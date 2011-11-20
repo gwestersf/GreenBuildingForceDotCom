@@ -60,6 +60,11 @@
         <type>Picklist</type>
     </fields>
     <label>Sensor</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <label>Sensor Tag</label>
         <type>Text</type>

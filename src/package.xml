@@ -5,13 +5,19 @@
     <description>Get started with the Realtime Force and the Streaming API on Salesforce.</description>
     <namespacePrefix>gwestr</namespacePrefix>
     <types>
+        <members>PushTopicController</members>
         <members>SensorRestResource</members>
         <members>SensorRestResourceTest</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>SensorConsole</members>
+        <members>StreamingAdmin</members>
         <name>ApexPage</name>
+    </types>
+    <types>
+        <members>GreenBuilding</members>
+        <name>CustomApplication</name>
     </types>
     <types>
         <members>Quantum__c.Sensor__c</members>
@@ -26,9 +32,22 @@
         <name>CustomObject</name>
     </types>
     <types>
+        <members>EnergyConsole</members>
+        <members>Quantum__c</members>
+        <members>Sensor__c</members>
+        <members>StreamingAdmin</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
         <members>Quantum__c-Quantum Layout</members>
         <members>Sensor__c-Sensor Layout</members>
+        <members>Sensor__c-SensorStandard</members>
         <name>Layout</name>
+    </types>
+    <types>
+        <members>Quantum__c.All</members>
+        <members>Sensor__c.All</members>
+        <name>ListView</name>
     </types>
     <types>
         <members>ack_js</members>

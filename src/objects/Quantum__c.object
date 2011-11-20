@@ -55,7 +55,15 @@
         <label>Type</label>
         <picklist>
             <picklistValues>
-                <fullName>Temperature, Light, Motion</fullName>
+                <fullName>Temperature</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Light</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Motion</fullName>
                 <default>false</default>
             </picklistValues>
             <sorted>false</sorted>
@@ -67,11 +75,22 @@
         <externalId>false</externalId>
         <label>Value</label>
         <length>255</length>
-        <required>false</required>
+        <required>true</required>
         <type>Text</type>
         <unique>false</unique>
     </fields>
     <label>Quantum</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>OBJECT_ID</columns>
+        <columns>NAME</columns>
+        <columns>Sensor__c</columns>
+        <columns>Type__c</columns>
+        <columns>Value__c</columns>
+        <columns>CREATEDBY_USER</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
     <nameField>
         <displayFormat>{00000000}</displayFormat>
         <label>Quantum ID</label>
