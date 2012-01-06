@@ -39,6 +39,37 @@
     <enableHistory>false</enableHistory>
     <enableReports>false</enableReports>
     <fields>
+        <fullName>LastLuminosity__c</fullName>
+        <description>The last recorded value of luminosity that we have seen</description>
+        <externalId>false</externalId>
+        <label>LastLuminosity</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastMotion__c</fullName>
+        <externalId>false</externalId>
+        <label>LastMotion</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>LastTemperature__c</fullName>
+        <externalId>false</externalId>
+        <label>LastTemperature</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>4</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
         <fullName>Type__c</fullName>
         <externalId>false</externalId>
         <label>Type</label>

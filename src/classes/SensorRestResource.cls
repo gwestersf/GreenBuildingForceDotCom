@@ -2,48 +2,49 @@
 global with sharing class SensorRestResource {
     
     @HttpPost
-    global static void doPost(RestRequest request, RestResponse response, String type, String value) {
+    global static void doPost(RestRequest request, RestResponse response, String sensor, String temperature, String motion, String light) {
+        System.debug('got a request');
+    
+    
         //return BAD REQUEST if value is null
-        if(value == null) {
+        if(sensor == null) {
             response.statusCode = 400;
             return;
         }
-        
-        //pull the sensor name off the URL and look up the ID
-        String sensorName = request.requestURI.substring(request.requestURI.lastIndexOf('/') + 1);
-        
+
         gwestr__Sensor__c activeSensor;
         try {
-            activeSensor = [SELECT id FROM gwestr__Sensor__c WHERE name = :sensorName];
+            activeSensor = [SELECT id FROM gwestr__Sensor__c WHERE id = :sensor limit 1];
         } //return NOT FOUND if that sensor doesn't exist
         catch(System.QueryException e) {    
             response.statusCode = 404;
-            response.responseBody = Blob.valueOf('Could not find sensor ' + sensorName);
-            return;
-        }
-        
-        //look up the picklist value
-        List<Schema.PicklistEntry> picklistValues = 
-            gwestr__Quantum__c.gwestr__Sensor__c.getDescribe().getPicklistValues();
-        Schema.PicklistEntry typeFromPicklist = null;
-        for(Schema.PicklistEntry picklistValue : picklistValues) {
-           if(picklistValue.getValue() == type) {
-              typeFromPicklist = picklistValue;
-           }
-        }
-        
-        //return BAD REQUEST if picklist value not valid
-        if(typeFromPicklist == null) {
-            response.statusCode = 400;
+            response.responseBody = Blob.valueOf('Could not find sensor ' + sensor);
             return;
         }
         
         //create and insert our Quantum report
-        gwestr__Quantum__c sensorReport = new Quantum__c();
-        sensorReport.gwestr__Sensor__r = activeSensor;
-        sensorReport.gwestr__Type__c = typeFromPicklist.getValue();
-        sensorReport.gwestr__Value__c = value;
-        insert sensorReport;
+        
+        if(temperature != null) {
+            gwestr__Quantum__c sensorReport = new Quantum__c();
+            sensorReport.gwestr__Sensor__c = activeSensor.id;
+            sensorReport.gwestr__Type__c = 'Temperature';
+            sensorReport.gwestr__Value__c = temperature;
+            insert sensorReport;
+        }
+        if(motion != null) {
+            gwestr__Quantum__c sensorReport = new Quantum__c();
+            sensorReport.gwestr__Sensor__c = activeSensor.id;
+            sensorReport.gwestr__Type__c = 'Motion';
+            sensorReport.gwestr__Value__c = motion;
+            insert sensorReport;
+        }
+        if(light != null) {
+            gwestr__Quantum__c sensorReport = new Quantum__c();
+            sensorReport.gwestr__Sensor__c = activeSensor.id;
+            sensorReport.gwestr__Type__c = 'Light';
+            sensorReport.gwestr__Value__c = light;
+            insert sensorReport;
+        }   
         
         //return success, NO CONTENT
         response.statusCode = 204;

@@ -16,6 +16,10 @@
         <name>ApexPage</name>
     </types>
     <types>
+        <members>updateSensorValue</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
         <members>GreenBuilding</members>
         <name>CustomApplication</name>
     </types>
@@ -23,6 +27,9 @@
         <members>Quantum__c.Sensor__c</members>
         <members>Quantum__c.Type__c</members>
         <members>Quantum__c.Value__c</members>
+        <members>Sensor__c.LastLuminosity__c</members>
+        <members>Sensor__c.LastMotion__c</members>
+        <members>Sensor__c.LastTemperature__c</members>
         <members>Sensor__c.Type__c</members>
         <name>CustomField</name>
     </types>
@@ -53,9 +60,12 @@
         <members>ack_js</members>
         <members>ackext_js</members>
         <members>bootstrap_css</members>
+        <members>buildingDiagram</members>
+        <members>chartIcon</members>
         <members>cometd_js</members>
         <members>common_cometd_js</members>
         <members>cookie_js</members>
+        <members>goodBS</members>
         <members>json2_js</members>
         <members>reload_js</members>
         <members>reloadext_js</members>

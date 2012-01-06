@@ -1,9 +1,10 @@
-<apex:page sidebar="false" standardStylesheets="false">
-  <head>
-    <apex:stylesheet value="{!$Resource.bootstrap_css}"/>
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Sensor__c" recordSetVar="sensors" tabStyle="EnergyConsole__tab">
+
+    <apex:stylesheet value="{!$Resource.goodBS}" />
     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/dojo.xd.js"/>
     <apex:includeScript value="{!$Resource.common_cometd_js}"/>
     <apex:includeScript value="{!$Resource.cometd_js}"/>
+    
     
     <script type="text/javascript">
         dojo.require("dojox.cometd");
@@ -14,7 +15,8 @@
         
             function _connectionSucceeded()
             {
-                dojo.byId('body').innerHTML = 'CometD Connection Succeeded';
+            
+                dojo.byId('s1motion').innerHTML = 'v: ' + message.data.event.type;
             }
         
             function _connectionBroken()
@@ -24,9 +26,20 @@
             
             function _metaSubscribe(message)
             {
+                var sensorId = message.data.sobject.gwestr__Sensor__c;
+                var sensorType = message.data.sobject.gwestr__Type__c;
+                var sensorValue = message.data.sobject.gwestr__Value__c;
+                
+                var sensorLabel = '';
+                var typeLabel = '';
+
+                var newIdLabel = sensorId + "." + sensorType;
+                
+                dojo.byId(newIdLabel).innerHTML = sensorValue;
+            
                 if(message.successful == false)
                 {
-                    Alert("Subscribe failed");
+                    alert("Subscribe failed");
                 }
             }
         
@@ -60,17 +73,10 @@
             });
             
             cometd.subscribe('/topic/quantum', _metaSubscribe);
-        
             cometd.addListener('/meta/connect', _metaConnect);
-        
-
-
         });
     </script>
-  </head>
-
-  <body>
-
+  
     <div class="container">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
@@ -78,36 +84,39 @@
         <h1>Realtime Energy Monitoring</h1>
         <br/>
         <p>1 Market Street, San Francisco, CA  94105</p>
-        <p>Vestibulum id ligula porta felis euismod semper. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
+        <p>Save Energy. One light at a time.</p><br/>
         <p><a class="btn primary large">Learn more &raquo;</a></p>
       </div>
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="span6">
-          <h2>Sensor 1000000</h2>
-          <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-        <div class="span5">
-          <h2>Sensor 1000001</h2>
-           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-       </div>
-        <div class="span5">
-          <h2>Sensor 1000002</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div>
-      </div>
+<table width="95%">
+<tr ><td>
+ <table style="width:100%;"> 
 
+  <tr><td></td><td><span style="font-weight:bold;">Temperature</span></td><td><span style="font-weight:bold;">Luminosity</span></td><td><span style="font-weight:bold;">Motion</span></td><td></td><td><span style="font-weight:bold;">Trending</span></td></tr> 
+  <apex:repeat value="{!sensors}" var="s"> <!-- Loop through list of account Ids -->
+  <div class="row">
+  <tr>
+                <td><span style="font-weight:bold;"><div id="{!s.id}.name">{!s.name}</div></span></td>
+                <td width="10%"><div id="{!s.id}.Temperature" onMouseOver="overrideHTMLInDiv('{!s.id}.Temperature', '{!s.id}.Temperature')">{!s.LastTemperature__c}</div></td>
+                <td width="10%"><div id="{!s.id}.Light" onMouseOver="overrideHTMLInDiv('{!s.id}.Light', '{!s.id}.Light')">{!s.LastLuminosity__c}</div></td>
+                <td><div id="{!s.id}.Motion" onMouseOver="overrideHTMLInDiv('{!s.id}.Motion', '{!s.id}.Motion')">{!s.LastMotion__c}</div></td>
+                <td><apex:outputlink value="/apex/chartProving"><img src="{!$Resource.chartIcon}" width="48px" /><apex:param name="id" value="{!s.id}"/></apex:outputLink></td>
+                <td width="40%"><br/><div class="btn small"><apex:outputlink value="/apex/chartProving" >View History &raquo;<apex:param name="id" value="{!s.id}"/></apex:outputlink></div></td>
+
+  </tr>         
+  </div>
+  </apex:repeat>
+  </table>
+
+</td><td><br/><br/><br/><img src="{!$Resource.buildingDiagram}" width="360px" /></td>
+</tr>
+</table>
       <footer>
         <p>Streaming brought to you by RealtimeForce</p>
       </footer>
 
     </div> <!-- /container -->
 
-  </body>
   
   
 </apex:page>

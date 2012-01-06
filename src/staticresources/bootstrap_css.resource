@@ -1768,8 +1768,8 @@ a.menu:after, .dropdown-toggle:after {
 }
 .hero-unit {
   background-color: #f5f5f5;
-  margin-bottom: 30px;
-  padding: 60px;
+  margin-bottom: 20px;
+  padding: 40px;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -2465,4 +2465,3 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
   box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
 }
-
