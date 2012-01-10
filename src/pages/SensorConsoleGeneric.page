@@ -1,0 +1,125 @@
+<apex:page sidebar="false" standardStylesheets="false" standardController="Sensor__c" recordSetVar="sensors" tabStyle="EnergyConsole__tab">
+  <head>
+      <apex:stylesheet value="{!$Resource.bootstrap_css}"/>
+       <apex:stylesheet value="{!$Resource.bootstrap_css}"/>
+       <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/dojo.xd.js"/>
+       <apex:includeScript value="{!$Resource.common_cometd_js}"/>
+       <apex:includeScript value="{!$Resource.cometd_js}"/>
+  
+      
+    <script type="text/javascript">
+     
+    function overrideHTMLInDiv(div, value)  {
+    
+        document.getElementById(div).innerHTML = value;
+    
+    } 
+     
+    </script>
+      
+         <script type="text/javascript">
+        dojo.require("dojox.cometd");
+        
+        dojo.addOnLoad(function()
+        {
+            var _connected = false;
+        
+            function _connectionSucceeded()
+            {
+            
+                dojo.byId('s1motion').innerHTML = 'v: ' + message.data.event.type;
+            }
+        
+            function _connectionBroken()
+            {
+                dojo.byId('body').innerHTML = 'CometD Connection Broken';
+            }
+            
+            function _metaSubscribe(message)
+            {
+                
+                alert('hi');
+                
+                var sensorId = message.data.sobject.gwestr__Sensor__c;
+                var sensorType = message.data.sobject.gwestr__Type__c;
+                var sensorValue = message.data.sobject.gwestr__Value__c;
+                
+                var sensorLabel = '';
+                var typeLabel = '';
+        
+                
+                var idLabel = sensorId. + sensorType;
+                  alert('idLabel is: ' + idLabel);      
+
+                dojo.byId(idLabel).innerHTML = sensorValue;
+            
+                if(message.successful == false)
+                {
+                    alert("Subscribe failed");
+                }
+                
+                
+            }
+        
+            function _metaConnect(message)
+            {
+                var wasConnected = _connected;
+                _connected = message.successful === true;
+                if (!wasConnected && _connected)
+                {
+                    _connectionSucceeded();
+                }
+                else if (wasConnected && !_connected)
+                {
+                    _connectionBroken();
+                }
+            }
+        
+            var cometd = dojox.cometd;
+        
+            // Disconnect when the page unloads
+            dojo.addOnUnload(function()
+            {
+                cometd.disconnect();
+            });
+        
+            var auth = 'OAuth {!$Api.Session_ID}';
+            var cometUrl = 'https://' + window.location.hostname + '/cometd/23.0/';
+            cometd.init({
+                url: cometUrl,
+                requestHeaders: {Authorization: auth}
+            });
+            
+            cometd.subscribe('/topic/quantum', _metaSubscribe);
+            cometd.addListener('/meta/connect', _metaConnect);
+        });
+    </script>
+ 
+      
+  </head>
+
+
+<body>
+
+ <div class="container">
+
+
+ <table style="width:80%;"> 
+
+  <tr><td></td><td>Temperature</td><td>Luminosity</td><td>Motion</td></tr> 
+  <apex:repeat value="{!sensors}" var="s"> <!-- Loop through list of account Ids -->
+  <tr>
+                <td><div id="{!s.id}.name">{!s.name}</div></td>
+                <td><div id="{!s.id}.Temperature" onMouseOver="overrideHTMLInDiv('{!s.id}.Temperature', '{!s.id}.Temperature')">{!s.LastTemperature__c}</div></td>
+                <td><div id="{!s.id}.Light" onMouseOver="overrideHTMLInDiv('{!s.id}.Light', '{!s.id}.Light')">{!s.LastLuminosity__c}</div></td>
+                <td><div id="{!s.id}.Motion" onMouseOver="overrideHTMLInDiv('{!s.id}.Motion', '{!s.id}.Motion')">{!s.LastMotion__c}</div></td>
+           
+  </tr>         
+  </apex:repeat>
+  </table>
+  
+  </div>
+  </body>
+  
+  
+</apex:page>

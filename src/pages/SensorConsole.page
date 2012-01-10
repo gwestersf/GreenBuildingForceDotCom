@@ -1,9 +1,11 @@
 <apex:page sidebar="false" showHeader="false" standardStylesheets="false" standardController="Sensor__c" recordSetVar="sensors" tabStyle="EnergyConsole__tab">
 
-    <apex:stylesheet value="{!$Resource.goodBS}" />
+    <apex:stylesheet value="{!$Resource.newBS_CSS}" />
+    
     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/dojo/1.4.3/dojo/dojo.xd.js"/>
     <apex:includeScript value="{!$Resource.common_cometd_js}"/>
     <apex:includeScript value="{!$Resource.cometd_js}"/>
+    <apex:includeScript value="{!$Resource.fader_JS}"/>
     
     
     <script type="text/javascript">
@@ -15,8 +17,6 @@
         
             function _connectionSucceeded()
             {
-            
-                dojo.byId('s1motion').innerHTML = 'v: ' + message.data.event.type;
             }
         
             function _connectionBroken()
@@ -34,9 +34,11 @@
                 var typeLabel = '';
 
                 var newIdLabel = sensorId + "." + sensorType;
-                
+
+                dojo.byId(newIdLabel).style.backgroundColor='Green';
                 dojo.byId(newIdLabel).innerHTML = sensorValue;
-            
+                colorFade(newIdLabel, 'background', 'f9bcbc', 'ffffff',25, 90);
+                dojo.byId(newIdLabel).style.backgroundColor='White';
                 if(message.successful == false)
                 {
                     alert("Subscribe failed");
@@ -76,8 +78,9 @@
             cometd.addListener('/meta/connect', _metaConnect);
         });
     </script>
-  
-    <div class="container">
+<img src="{!$Resource.oneMarketHR}" style="position:fixed; top:0; left:0; min-width:100%; min-height:80%;" />  
+    <br/>
+    <div class="container" style="opacity:0.9; filter:alpha(opacity=50);">
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
@@ -85,38 +88,35 @@
         <br/>
         <p>1 Market Street, San Francisco, CA  94105</p>
         <p>Save Energy. One light at a time.</p><br/>
-        <p><a class="btn primary large">Learn more &raquo;</a></p>
+        <p><a class="btn primary large" href="../a00?fcf=00BU0000002Kc83" target="_blank">Manage &raquo;</a></p>
       </div>
-
-<table width="95%">
+<div class="hero-unit">
+<table width="95%" style="background-color: white;">
 <tr ><td>
- <table style="width:100%;"> 
+ <table align="left" style="width:100%;"> 
 
   <tr><td></td><td><span style="font-weight:bold;">Temperature</span></td><td><span style="font-weight:bold;">Luminosity</span></td><td><span style="font-weight:bold;">Motion</span></td><td></td><td><span style="font-weight:bold;">Trending</span></td></tr> 
   <apex:repeat value="{!sensors}" var="s"> <!-- Loop through list of account Ids -->
   <div class="row">
   <tr>
                 <td><span style="font-weight:bold;"><div id="{!s.id}.name">{!s.name}</div></span></td>
-                <td width="10%"><div id="{!s.id}.Temperature" onMouseOver="overrideHTMLInDiv('{!s.id}.Temperature', '{!s.id}.Temperature')">{!s.LastTemperature__c}</div></td>
+                <td width="11%"><div id="{!s.id}.Temperature" onMouseOver="overrideHTMLInDiv('{!s.id}.Temperature', '{!s.id}.Temperature')">{!s.LastTemperature__c}</div></td>
                 <td width="10%"><div id="{!s.id}.Light" onMouseOver="overrideHTMLInDiv('{!s.id}.Light', '{!s.id}.Light')">{!s.LastLuminosity__c}</div></td>
                 <td><div id="{!s.id}.Motion" onMouseOver="overrideHTMLInDiv('{!s.id}.Motion', '{!s.id}.Motion')">{!s.LastMotion__c}</div></td>
                 <td><apex:outputlink value="/apex/chartProving"><img src="{!$Resource.chartIcon}" width="48px" /><apex:param name="id" value="{!s.id}"/></apex:outputLink></td>
-                <td width="40%"><br/><div class="btn small"><apex:outputlink value="/apex/chartProving" >View History &raquo;<apex:param name="id" value="{!s.id}"/></apex:outputlink></div></td>
+                <td width="38%"><br/><div class="btn small"><apex:outputlink value="/apex/chartProving" target="_blank" >View History &raquo;<apex:param name="id" value="{!s.id}"/></apex:outputlink></div></td>
 
   </tr>         
   </div>
   </apex:repeat>
   </table>
 
-</td><td><br/><br/><br/><img src="{!$Resource.buildingDiagram}" width="360px" /></td>
+</td><td><br/><br/><br/><br/><br/><img src="{!$Resource.buildingDiagram}" width="360px" /></td>
 </tr>
 </table>
-      <footer>
-        <p>Streaming brought to you by RealtimeForce</p>
-      </footer>
+
+</div>
 
     </div> <!-- /container -->
 
-  
-  
 </apex:page>

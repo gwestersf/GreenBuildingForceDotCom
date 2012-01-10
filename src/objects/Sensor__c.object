@@ -96,6 +96,16 @@
         <filterScope>Everything</filterScope>
         <label>All</label>
     </listViews>
+    <listViews>
+        <fullName>Main</fullName>
+        <columns>NAME</columns>
+        <columns>LastLuminosity__c</columns>
+        <columns>LastTemperature__c</columns>
+        <columns>LastMotion__c</columns>
+        <columns>Type__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Main</label>
+    </listViews>
     <nameField>
         <label>Sensor Tag</label>
         <type>Text</type>

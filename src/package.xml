@@ -12,6 +12,7 @@
     </types>
     <types>
         <members>SensorConsole</members>
+        <members>SensorConsoleGeneric</members>
         <members>StreamingAdmin</members>
         <name>ApexPage</name>
     </types>
@@ -54,6 +55,7 @@
     <types>
         <members>Quantum__c.All</members>
         <members>Sensor__c.All</members>
+        <members>Sensor__c.Main</members>
         <name>ListView</name>
     </types>
     <types>
@@ -65,10 +67,23 @@
         <members>cometd_js</members>
         <members>common_cometd_js</members>
         <members>cookie_js</members>
-        <members>goodBS</members>
+        <members>fader_CSS</members>
+        <members>fader_JS</members>
+        <members>jqplot_canvasAxisLabelRenderer_min_js</members>
+        <members>jqplot_canvasTextRenderer_min_js</members>
+        <members>jquery_jqplot_min_css</members>
+        <members>jquery_jqplot_min_js</members>
+        <members>jquery_min_js</members>
         <members>json2_js</members>
+        <members>newBS_CSS</members>
+        <members>oneMarketHR</members>
         <members>reload_js</members>
         <members>reloadext_js</members>
+        <members>shBrushJScript_min_js</members>
+        <members>shBrushXml_min_js</members>
+        <members>shCoreDefault_min_css</members>
+        <members>shCore_min_js</members>
+        <members>shThemejqPlot_min_css</members>
         <members>timestamp_js</members>
         <members>timestampext_js</members>
         <members>timesync_js</members>
